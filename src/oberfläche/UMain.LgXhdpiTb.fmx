@@ -1,0 +1,55 @@
+inherited Form1_LgXhdpiTb: TForm1_LgXhdpiTb
+  ClientHeight = 829
+  ClientWidth = 480
+  DesignerMasterStyle = 0
+  inherited ScrollBar1: TScrollBar
+    Size.Width = 480.000000000000000000
+    Size.Height = 829.000000000000000000
+    inherited Rectangle3: TRectangle
+      Size.Width = 480.000000000000000000
+      Size.Height = 305.000000000000000000
+      inherited RoundRect1: TRoundRect
+        Size.Width = 380.000000000000000000
+        inherited btnOn: TButton
+          Size.Width = 380.000000000000000000
+        end
+      end
+      inherited RoundRect2: TRoundRect
+        Size.Width = 380.000000000000000000
+        inherited btnOff: TButton
+          Size.Width = 380.000000000000000000
+        end
+      end
+      inherited Rectangle1: TRectangle
+        Size.Width = 480.000000000000000000
+        inherited lblRgb: TLabel
+          Size.Width = 380.000000000000000000
+        end
+        inherited lblRed: TLabel
+          Size.Width = 380.000000000000000000
+        end
+        inherited lblGreen: TLabel
+          Size.Width = 380.000000000000000000
+        end
+        inherited lblBlue: TLabel
+          Size.Width = 380.000000000000000000
+        end
+      end
+    end
+    inherited rectColorPanel: TRectangle
+      Size.Width = 480.000000000000000000
+      Size.Height = 524.000000000000000000
+      inherited ColorPanel1: TColorPanel
+        Size.Width = 460.000000000000000000
+        Size.Height = 464.000000000000000000
+      end
+      inherited RoundRect3: TRoundRect
+        Position.Y = 464.000000000000000000
+        Size.Width = 380.000000000000000000
+        inherited btnApply: TButton
+          Size.Width = 380.000000000000000000
+        end
+      end
+    end
+  end
+end
