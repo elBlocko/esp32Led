@@ -100,9 +100,9 @@ end;
 
 procedure TForm1.FormShow(Sender: TObject);
 begin
- setParams();
- iniLoad();
- myHttpRequest();
+// setParams();
+// iniLoad();
+// myHttpRequest();
 end;
 
 procedure TForm1.iniLoad;

@@ -1,0 +1,40 @@
+\section{Implementierung}
+\subsection{ESP32}
+Nach der Installation der \textbf{Arduino IDE} habe ich die Bibliothek für den \textit{ESP32} installiert.
+Zum testen habe ich ein leeres Programm kompiliert und auf den \textit{ESP32} übertragen. Dabei war es notwendig bei dem \textit{connecting...} den bootknopf am \textit{ESP32} gedrückt zu halten.\\
+Der Umgang mit analogen Ausgängen beim \textit{ESP32} erschien schwierig und im Unterricht wurde nur der \textit{Arduino Uno} behandelt. Daher habe ich eine erste Testschaltung mit 3 einzelnen Dioden, die jeweils Rot, Grün und Blau repräsentieren, am \textit{Arduino Uno} durchgeführt.\\
+\textit{Siehe Abbildung 3 : Arduino Test LED Aufbau}\\\\
+Danach habe ich den Aufbau mit einem kurzen, angelöteten LED-Segment getestet.\\
+\textit{Siehe Abbildung 4 : Arduino Aufbau}\\
+Danach habe ich auf dem \textit{ESP32} nach einer Anleitung von \textit{randomnerdtutorial.com} und \textit{techtutorialsx.com} einen Webserver aufgesetzt und mir genauer angeschaut, was welcher Befehl macht und was ich davon brauche. Beim ESP32 habe ich dann, wie beim Arduino Uno eine Testumgebung mit 3 Dioden durchgeführt. Diese 3 Dioden habe ich an 3 Pins angeschlossen und mittels einer gesetzten Frequenz von 5Khz und einer Tiefe von 8 Bit (256 Farbwerte) mittels der LED Methoden des ESP32 auf analog gesetzt.\\
+Anschließend habe ich mir eine Methode geschrieben, die 3 integer Werte von 0 bis 255 als "r g b" Werte über den jeweiligen Kanal mit dem http request an die Led schreibt.\\
+Danach habe ich meinen kurzen LED- Streifen angeschlossen und getestet mit den Befehlen über den Browser.\\
+\textit{Siehe Abbildung 5 bis 10}
+\subsection{Delphi}
+Nachdem ich über den HTTP Request mit der GET Methode die 3 Parameter für rot grün und blau Werte übergeben konnte und der LED-Streifen daraufhin seine Farbe ändern konnte, habe ich mir die Programmierung der Android App vorgenommen.\\
+Dazu verwende ich die Delphi Community Edition mit installierten Android SDK und NDK. Mein Telefon wurde aber erst von der IDE erkannt, nachdem ich die Google USB Driver und die Samsung Driver nachinstalliert hatte.\\
+\textit{Siehe Abbildung 15 bis 17}\\
+Außerdem musste ich die den Pfad zur keytool.exe ändern, damit das richtige Java gefunden werden konnte.\\
+\textit{Siehe Abbildung 18: Das richtige Java verwenden}\\
+Danach habe ich eine simple Oberfläche erstellt.
+\textit{Siehe Abbildung 10: Design Struktur} \\
+Auf der Oberfläche liegt eine HTTP Komponente, über deren Instanz ich die \textit{HTTP-Get} Anfrage abschicke. In den Einstellungen habe ich die Methode auf plain/text geändert. Die Browserversion habe ich auf Mozilla 5.0 angepasst, da sonst die Anfragen nicht mehr verarbeitet werden können. (mit der Standard Einstellung auf Version 3.0)\\
+Die gesamten Elemente habe ich in ein ScrollPane gelegt, dass auf verschieden großen Geräten bei Bedarf nach unten gescrollt werden kann  und alle Elemente erreicht werden können. Als Layer verwende ich rectangle der Klasse TRectangle, da diese sehr flexibel in der Anpassung sind. Ich hätte auch in die Rectangle in denen meine Buttons liegen OnClick Events verwenden können und mir somit die Buttons sparen können. Ich habe mich aber für die Buttons entschieden, da es eine Standard animation beim Click gibt. Da die Buttons keine Möglichkeit der Farbanpassung besitzen habe ich die Background Color auf visible false über das Stil Menü für alle Button Instanzen gesetzt.\\
+Es gibt insgesamt 3 Buttons. Einen \textbf{ON}, einen \textbf{OFF} und einen \textbf{OK} Button, zum an- und ausschalten des Led-Streifens und zum senden der eingestellten Farbe.\\
+\subsubsection{Der Code}
+Zum Auswählen der Farbe verwende ich einen ColorPanel, eine vorgefertigte Komponente aus Delphi. Die Veränderung der Werte Frage ich im OnChange Event des Panels ab. Diese Werte lasse ich mir in Labels ausgeben. einmal den Hexadezimalwert der Farbe und die 3 zugehörigen Dezimalwerte für Rot, Grün und Blau. Das Umrechnen und Ausgeben der Werte erfolgt im Event selbst.\\
+\textit{Siehe Abbildung 11: Das Color Change Event}\\
+Die 3 Farbwerte speichere ich mir in globalen Variablen, denn das sind die Werte, welche ich als Parameter mit der Get Anfrage sende.\\
+Der HTTP-Request liegt dann in den 3 ButtonClick Events.\\
+Beim Button \textbf{OFF} sende ich ein GET-Request mit jeweils 0 als Parameter, welches den Strom sozusagen auf 0 Volt an allen 3 Kanälen, bzw. zugeordneten Pins setzt.
+Beim Button \textbf{OK} verschicke ich die zwischengespeicherten Werte aus der Auswahl als Parameter und jede Farbe bekommt einen Wert zwischen 0 und 255, also keiner Spannung und voller Spannung.\\
+Der \textbf{ON} Button und das Abschalten stellen noch ein Problem dar. Wie speichere ich mir die zuletzt eingestellte Farbe?\\
+Als Lösung habe ich mich für eine ini- Datei entschieden, die ich beim kompilieren der apk. Datei mitgebe und die nach jedem An-und Abschalten überschriben wird. Sie Enthält einen Knoten : [rgb] und die 3 Werte für den HTTP Request.\\
+\textit{Siehe Abbildung 12 bis 14}
+\subsubsection{Probleme}
+Probleme traten auf, wenn ich zum Beispiel beim kompilieren die Verbindung zum Android Gerät verloren oder unterbrochen habe. Danach kommt es beim komilieren zu Signatur Fehlermeldungen in der IDE. Das kann durch Bereinigen, Versionierung, geänderten Port oder eine komplette Neuinstallation der .apk auf dem Zielgerät erfolgen.\\
+\textit{Siehe Abbildung 19 bis 21}
+
+
+
+
